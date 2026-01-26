@@ -7,8 +7,8 @@ describe('Scoreboard', () => {
     // Arrange & Act: render Scoreboard
     render(<Scoreboard />);
 
-    // Assert: verify score displays as 0
-    expect(screen.getByText(/score: 0/i)).toBeInTheDocument();
+    // Assert: verify current score displays as 0
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
   });
 
   it('displays custom score when passed as prop', () => {
@@ -19,6 +19,14 @@ describe('Scoreboard', () => {
     render(<Scoreboard score={customScore} />);
 
     // Assert: verify custom score displays
-    expect(screen.getByText(/score: 5/i)).toBeInTheDocument();
+    expect(screen.getByText(/^score: 5$/i)).toBeInTheDocument();
+  });
+
+  it('renders with initial best score of 0', () => {
+    // Act: render Scoreboard
+    render(<Scoreboard />);
+
+    // Assert: verify current best score displays as 0
+    expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
 });
