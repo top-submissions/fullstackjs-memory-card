@@ -29,4 +29,15 @@ describe('Scoreboard', () => {
     // Assert: verify current best score displays as 0
     expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
+
+  it('displays custom best score when passed as prop', () => {
+    // Arrange: prepare a best score value to pass
+    const customBestScore = 10;
+
+    // Act: render with bestScore prop
+    render(<Scoreboard bestScore={customBestScore} />);
+
+    // Assert: verify custom best score displays
+    expect(screen.getByText(/^best score: 10$/i)).toBeInTheDocument();
+  });
 });
