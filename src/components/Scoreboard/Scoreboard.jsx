@@ -1,5 +1,5 @@
-function Scoreboard() {
-  return <div>Score: 0</div>;
+function Scoreboard({ score = 0 }) {
+  return <div>Score: {score}</div>;
 }
 
 export default Scoreboard;
