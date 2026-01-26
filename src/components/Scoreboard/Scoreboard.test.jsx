@@ -10,4 +10,15 @@ describe('Scoreboard', () => {
     // Assert: verify score displays as 0
     expect(screen.getByText(/score: 0/i)).toBeInTheDocument();
   });
+
+  it('displays custom score when passed as prop', () => {
+    // Arrange: prepare a score value to pass
+    const customScore = 5;
+
+    // Act: render with score prop
+    render(<Scoreboard score={customScore} />);
+
+    // Assert: verify custom score displays
+    expect(screen.getByText(/score: 5/i)).toBeInTheDocument();
+  });
 });
