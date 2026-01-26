@@ -1,8 +1,8 @@
-function Scoreboard({ score = 0 }) {
+function Scoreboard({ score = 0, bestScore = 0 }) {
   return (
     <div>
       <div>Score: {score}</div>
-      <div>Best Score: 0</div>
+      <div>Best Score: {bestScore}</div>
     </div>
   );
 }
