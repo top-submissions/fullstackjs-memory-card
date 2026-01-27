@@ -40,4 +40,17 @@ describe('Scoreboard', () => {
     // Assert: verify custom best score displays
     expect(screen.getByText(/^best score: 10$/i)).toBeInTheDocument();
   });
+
+  it('displays both custom score and bestScore simultaneously', () => {
+    // Arrange: prepare both score values
+    const currentScore = 7;
+    const highScore = 12;
+
+    // Act: render with both props
+    render(<Scoreboard score={currentScore} bestScore={highScore} />);
+
+    // Assert: both scores display independently
+    expect(screen.getByText(/^score: 7$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 12$/i)).toBeInTheDocument();
+  });
 });
