@@ -1,4 +1,4 @@
-import { describe, it, expect, test } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Card from './Card';
 
@@ -26,5 +26,17 @@ describe('Card', () => {
     // Assert: image has alt attribute for accessibility
     const image = screen.getByRole('img');
     expect(image).toHaveAttribute('alt', testAltText);
+  });
+
+  it('renders with a title', () => {
+    // Arrange: prepare card data
+    const testImageUrl = 'https://example.com/pikachu.jpg';
+    const testTitle = 'Pikachu';
+
+    // Act: render Card with title prop
+    render(<Card imageUrl={testImageUrl} alt="Pikachu" title={testTitle} />);
+
+    // Assert: title text is visible
+    expect(screen.getByText(testTitle)).toBeInTheDocument();
   });
 });
