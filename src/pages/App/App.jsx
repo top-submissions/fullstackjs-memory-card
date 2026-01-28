@@ -4,6 +4,8 @@ import Scoreboard from '../../components/Scoreboard/Scoreboard';
 import Card from '../../components/Card/Card';
 
 function App() {
+  const [score, setScore] = useState(0);
+
   // Hardcoded cards data
   // TODO: replace with API data later
   const cards = [
@@ -29,7 +31,7 @@ function App() {
 
   return (
     <>
-      <Scoreboard />
+      <Scoreboard score={score} />
       {cards.map((card) => (
         <Card
           key={card.id}
