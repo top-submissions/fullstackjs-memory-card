@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Card from './Card';
 
 describe('Card', () => {
@@ -38,5 +39,25 @@ describe('Card', () => {
 
     // Assert: title text is visible
     expect(screen.getByText(testTitle)).toBeInTheDocument();
+  });
+
+  it('calls onClick handler when clicked', async () => {
+    // Arrange: prepare mock function and user interaction
+    const user = userEvent.setup();
+    const mockOnClick = vi.fn();
+
+    // Act: render Card and click it
+    render(
+      <Card
+        imageUrl="https://example.com/test.jpg"
+        alt="Test card"
+        title="Test"
+        onClick={mockOnClick}
+      />,
+    );
+    await user.click(screen.getByRole('img'));
+
+    // Assert: onClick was invoked once
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 });
