@@ -22,4 +22,14 @@ describe('App', () => {
     expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
     expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
+
+  it('renders multiple cards from data array', () => {
+    // Act: render App
+    render(<App />);
+
+    // Assert: verify cards appear (checking for card titles proves they rendered)
+    expect(screen.getByText('Pikachu')).toBeInTheDocument();
+    expect(screen.getByText('Charmander')).toBeInTheDocument();
+    expect(screen.getByText('Bulbasaur')).toBeInTheDocument();
+  });
 });
