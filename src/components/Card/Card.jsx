@@ -1,5 +1,5 @@
-function Card({ imageUrl }) {
-  return <img src={imageUrl} />;
+function Card({ imageUrl, alt }) {
+  return <img src={imageUrl} alt={alt} />;
 }
 
 export default Card;
