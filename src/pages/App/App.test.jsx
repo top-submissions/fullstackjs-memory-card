@@ -32,4 +32,12 @@ describe('App', () => {
     expect(screen.getByText('Charmander')).toBeInTheDocument();
     expect(screen.getByText('Bulbasaur')).toBeInTheDocument();
   });
+
+  it('manages score state', () => {
+    // Act: render App
+    render(<App />);
+
+    // Assert: score starts at 0 (managed by App state, not Scoreboard default)
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+  });
 });
