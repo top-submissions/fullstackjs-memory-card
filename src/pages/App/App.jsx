@@ -29,6 +29,10 @@ function App() {
     },
   ];
 
+  const handleCardClick = () => {
+    setScore(score + 1);
+  };
+
   return (
     <>
       <Scoreboard score={score} />
@@ -38,6 +42,7 @@ function App() {
           imageUrl={card.imageUrl}
           alt={card.alt}
           title={card.title}
+          onClick={handleCardClick}
         />
       ))}
     </>
