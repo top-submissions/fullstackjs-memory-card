@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe('App', () => {
@@ -39,5 +40,17 @@ describe('App', () => {
 
     // Assert: score starts at 0 (managed by App state, not Scoreboard default)
     expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+  });
+
+  it('increments score when a card is clicked', async () => {
+    // Arrange: setup user interaction
+    const user = userEvent.setup();
+
+    // Act: render App and click first card
+    render(<App />);
+    await user.click(screen.getByText('Pikachu'));
+
+    // Assert: score incremented from 0 to 1
+    expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
   });
 });
