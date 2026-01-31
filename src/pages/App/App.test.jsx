@@ -61,4 +61,16 @@ describe('App', () => {
     // Assert: best score starts at 0 (managed by App state, not Scoreboard default)
     expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
+
+  it('updates best score when current score exceeds it', async () => {
+    // Arrange: setup user interaction
+    const user = userEvent.setup();
+
+    // Act: render App and click card to increment score to 1
+    render(<App />);
+    await user.click(screen.getByText('Pikachu'));
+
+    // Assert: best score updated to match new high score
+    expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
+  });
 });
