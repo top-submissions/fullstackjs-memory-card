@@ -5,6 +5,7 @@ import Card from '../../components/Card/Card';
 
 function App() {
   const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   // Hardcoded cards data
   // TODO: replace with API data later
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <>
-      <Scoreboard score={score} />
+      <Scoreboard score={score} bestScore={bestScore} />
       {cards.map((card) => (
         <Card
           key={card.id}
