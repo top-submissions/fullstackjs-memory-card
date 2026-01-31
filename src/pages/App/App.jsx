@@ -31,7 +31,13 @@ function App() {
   ];
 
   const handleCardClick = () => {
-    setScore(score + 1);
+    const newScore = score + 1;
+    setScore(newScore);
+
+    // Update best score if new score exceeds it
+    if (newScore > bestScore) {
+      setBestScore(newScore);
+    }
   };
 
   return (
