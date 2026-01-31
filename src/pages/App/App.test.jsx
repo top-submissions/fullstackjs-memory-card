@@ -53,4 +53,12 @@ describe('App', () => {
     // Assert: score incremented from 0 to 1
     expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
   });
+
+  it('manages best score state', () => {
+    // Act: render App
+    render(<App />);
+
+    // Assert: best score starts at 0 (managed by App state, not Scoreboard default)
+    expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
+  });
 });
