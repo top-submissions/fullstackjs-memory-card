@@ -73,4 +73,18 @@ describe('App', () => {
     // Assert: best score updated to match new high score
     expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
   });
+
+  it('shuffles cards after being clicked', async () => {
+    // Arrange: setup user and capture initial order
+    const user = userEvent.setup();
+    render(<App />);
+    const initialFirstCard = screen.getAllByRole('img')[0].alt;
+
+    // Act: click a card to trigger shuffle
+    await user.click(screen.getByText('Pikachu'));
+
+    // Assert: card order changed (first card is different)
+    const newFirstCard = screen.getAllByRole('img')[0].alt;
+    expect(newFirstCard).not.toBe(initialFirstCard);
+  });
 });
