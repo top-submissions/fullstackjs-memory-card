@@ -7,6 +7,7 @@ import { shuffle } from '../../modules/utils/shuffle';
 function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [clickedCards, setClickedCards] = useState([]);
   const [cards, setCards] = useState([
     {
       id: 1,
@@ -28,9 +29,19 @@ function App() {
     },
   ]);
 
-  const handleCardClick = () => {
+  const handleCardClick = (cardId) => {
+    // Check if card was already clicked (lose condition)
+    if (clickedCards.includes(cardId)) {
+      setScore(0);
+      setClickedCards([]);
+      setCards(shuffle(cards));
+      return;
+    }
+
+    // Card not clicked before, increment score
     const newScore = score + 1;
     setScore(newScore);
+    setClickedCards([...clickedCards, cardId]);
 
     // Update best score if new score exceeds it
     if (newScore > bestScore) {
@@ -49,7 +60,7 @@ function App() {
           imageUrl={card.imageUrl}
           alt={card.alt}
           title={card.title}
-          onClick={handleCardClick}
+          onClick={() => handleCardClick(card.id)}
         />
       ))}
     </>

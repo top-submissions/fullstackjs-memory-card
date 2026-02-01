@@ -87,4 +87,17 @@ describe('App', () => {
     const newFirstCard = screen.getAllByRole('img')[0].alt;
     expect(newFirstCard).not.toBe(initialFirstCard);
   });
+
+  it('resets score to 0 when clicking the same card twice', async () => {
+    // Arrange: setup user interaction
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Act: click Pikachu once (score becomes 1), then click Pikachu again
+    await user.click(screen.getByText('Pikachu'));
+    await user.click(screen.getByText('Pikachu'));
+
+    // Assert: score reset to 0 after duplicate click
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+  });
 });
