@@ -6,10 +6,7 @@ import Card from '../../components/Card/Card';
 function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
-
-  // Hardcoded cards data
-  // TODO: replace with API data later
-  const cards = [
+  const [cards, setCards] = useState([
     {
       id: 1,
       title: 'Pikachu',
@@ -28,7 +25,7 @@ function App() {
       imageUrl: 'https://example.com/bulbasaur.jpg',
       alt: 'Bulbasaur',
     },
-  ];
+  ]);
 
   const handleCardClick = () => {
     const newScore = score + 1;
@@ -38,6 +35,14 @@ function App() {
     if (newScore > bestScore) {
       setBestScore(newScore);
     }
+
+    // Shuffle cards using Fisher-Yates algorithm
+    const shuffled = [...cards];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setCards(shuffled);
   };
 
   return (
