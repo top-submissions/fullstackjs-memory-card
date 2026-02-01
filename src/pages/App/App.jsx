@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '../../styles/index.css';
 import Scoreboard from '../../components/Scoreboard/Scoreboard';
 import Card from '../../components/Card/Card';
+import { shuffle } from '../../modules/utils/shuffle';
 
 function App() {
   const [score, setScore] = useState(0);
@@ -36,13 +37,7 @@ function App() {
       setBestScore(newScore);
     }
 
-    // Shuffle cards using Fisher-Yates algorithm
-    const shuffled = [...cards];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setCards(shuffled);
+    setCards(shuffle(cards));
   };
 
   return (
