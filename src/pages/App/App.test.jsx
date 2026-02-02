@@ -114,4 +114,19 @@ describe('App', () => {
     expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
     expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
   });
+
+  it('increases score continuously when clicking all unique cards', async () => {
+    // Arrange: setup user interaction
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Act: click all three unique cards in sequence
+    await user.click(screen.getByText('Pikachu'));
+    await user.click(screen.getByText('Charmander'));
+    await user.click(screen.getByText('Bulbasaur'));
+
+    // Assert: score reached maximum (all cards clicked once)
+    expect(screen.getByText(/^score: 3$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 3$/i)).toBeInTheDocument();
+  });
 });
