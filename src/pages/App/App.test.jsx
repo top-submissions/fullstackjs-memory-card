@@ -100,4 +100,18 @@ describe('App', () => {
     // Assert: score reset to 0 after duplicate click
     expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
   });
+
+  it('preserves best score when score resets', async () => {
+    // Arrange: setup user interaction
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Act: click Pikachu (score=1, best=1), then click duplicate to reset
+    await user.click(screen.getByText('Pikachu'));
+    await user.click(screen.getByText('Pikachu'));
+
+    // Assert: score reset to 0 but best score still 1
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
+  });
 });
