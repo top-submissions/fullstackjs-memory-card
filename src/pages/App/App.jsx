@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../styles/index.css';
 import Scoreboard from '../../components/Scoreboard/Scoreboard';
 import Card from '../../components/Card/Card';
@@ -29,6 +29,14 @@ function App() {
       alt: 'Bulbasaur',
     },
   ]);
+
+  useEffect(() => {
+    async function fetchCards() {
+      // Simulate data loading completion
+      setLoading(false);
+    }
+    fetchCards();
+  }, []);
 
   const handleCardClick = (cardId) => {
     // Check if card was already clicked (lose condition)
