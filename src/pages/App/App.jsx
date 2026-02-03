@@ -5,6 +5,7 @@ import Card from '../../components/Card/Card';
 import { shuffle } from '../../modules/utils/shuffle';
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [clickedCards, setClickedCards] = useState([]);
@@ -53,16 +54,22 @@ function App() {
 
   return (
     <>
-      <Scoreboard score={score} bestScore={bestScore} />
-      {cards.map((card) => (
-        <Card
-          key={card.id}
-          imageUrl={card.imageUrl}
-          alt={card.alt}
-          title={card.title}
-          onClick={() => handleCardClick(card.id)}
-        />
-      ))}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <Scoreboard score={score} bestScore={bestScore} />
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              imageUrl={card.imageUrl}
+              alt={card.alt}
+              title={card.title}
+              onClick={() => handleCardClick(card.id)}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 }

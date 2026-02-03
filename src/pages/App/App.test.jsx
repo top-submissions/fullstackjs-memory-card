@@ -129,4 +129,12 @@ describe('App', () => {
     expect(screen.getByText(/^score: 3$/i)).toBeInTheDocument();
     expect(screen.getByText(/^best score: 3$/i)).toBeInTheDocument();
   });
+
+  it('displays loading state initially', () => {
+    // Act: render App
+    render(<App />);
+
+    // Assert: loading text appears before cards are ready
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
 });
