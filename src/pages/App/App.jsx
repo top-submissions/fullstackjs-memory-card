@@ -9,31 +9,28 @@ function App() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [clickedCards, setClickedCards] = useState([]);
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: 'Pikachu',
-      imageUrl: 'https://example.com/pikachu.jpg',
-      alt: 'Pikachu',
-    },
-    {
-      id: 2,
-      title: 'Charmander',
-      imageUrl: 'https://example.com/charmander.jpg',
-      alt: 'Charmander',
-    },
-    {
-      id: 3,
-      title: 'Bulbasaur',
-      imageUrl: 'https://example.com/bulbasaur.jpg',
-      alt: 'Bulbasaur',
-    },
-  ]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     async function fetchCards() {
-      // Simulate data loading completion
-      setLoading(false);
+      try {
+        const response = await fetch(
+          'https://pokeapi.co/api/v2/pokemon?limit=12',
+        );
+        const data = await response.json();
+
+        // Transform API data to card format
+        const pokemonCards = data.results.map((pokemon, index) => ({
+          id: index + 1,
+          title: pokemon.name,
+          imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
+          alt: pokemon.name,
+        }));
+
+        setCards(pokemonCards);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchCards();
   }, []);
