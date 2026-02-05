@@ -181,4 +181,17 @@ describe('App', () => {
     expect(screen.getByText('ivysaur')).toBeInTheDocument();
     expect(screen.getByText('venusaur')).toBeInTheDocument();
   });
+
+  it('displays error message when API fetch fails', async () => {
+    // Arrange: mock fetch to reject
+    global.fetch.mockRejectedValueOnce(new Error('API Error'));
+
+    // Act: render App (triggers failed fetch)
+    render(<App />);
+
+    // Assert: error message appears instead of crash
+    await waitFor(() => {
+      expect(screen.getByText(/error loading cards/i)).toBeInTheDocument();
+    });
+  });
 });

@@ -6,6 +6,7 @@ import { shuffle } from '../../modules/utils/shuffle';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [clickedCards, setClickedCards] = useState([]);
@@ -28,6 +29,8 @@ function App() {
         }));
 
         setCards(pokemonCards);
+      } catch (err) {
+        setError('Error loading cards. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -61,6 +64,8 @@ function App() {
     <>
       {loading ? (
         <div>Loading...</div>
+      ) : error ? (
+        <div>{error}</div>
       ) : (
         <>
           <Scoreboard score={score} bestScore={bestScore} />
