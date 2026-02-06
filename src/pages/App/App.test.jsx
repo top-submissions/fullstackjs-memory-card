@@ -194,4 +194,27 @@ describe('App', () => {
       expect(screen.getByText(/error loading cards/i)).toBeInTheDocument();
     });
   });
+
+  it('displays exactly 12 cards from Pokemon API', async () => {
+    // Arrange: mock API response with 12 Pokemon
+    const mockPokemon = Array.from({ length: 12 }, (_, i) => ({
+      name: `pokemon${i + 1}`,
+      url: `https://pokeapi.co/api/v2/pokemon/${i + 1}/`,
+    }));
+
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ results: mockPokemon }),
+    });
+
+    // Act: render App and wait for cards to load
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
+    });
+
+    // Assert: exactly 12 cards rendered
+    const cards = screen.getAllByRole('img');
+    expect(cards).toHaveLength(12);
+  });
 });
