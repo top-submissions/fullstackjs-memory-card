@@ -217,4 +217,28 @@ describe('App', () => {
     const cards = screen.getAllByRole('img');
     expect(cards).toHaveLength(12);
   });
+
+  it('increments score when clicking API-loaded card', async () => {
+    // Arrange: mock API and setup user
+    const user = userEvent.setup();
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        results: [
+          { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' },
+          { name: 'charizard', url: 'https://pokeapi.co/api/v2/pokemon/6/' },
+        ],
+      }),
+    });
+
+    // Act: render, wait for cards to load, then click one
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByText('pikachu')).toBeInTheDocument();
+    });
+    await user.click(screen.getByText('pikachu'));
+
+    // Assert: score incremented after clicking API-loaded card
+    expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
+  });
 });
