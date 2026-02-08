@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import '../../styles/index.css';
 import Scoreboard from '../../components/Scoreboard/Scoreboard';
 import Card from '../../components/Card/Card';
 import { shuffle } from '../../modules/utils/shuffle';
+import styles from './App.module.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,6 @@ function App() {
         );
         const data = await response.json();
 
-        // Transform API data to card format
         const pokemonCards = data.results.map((pokemon, index) => ({
           id: index + 1,
           title: pokemon.name,
@@ -39,7 +38,6 @@ function App() {
   }, []);
 
   const handleCardClick = (cardId) => {
-    // Check if card was already clicked (lose condition)
     if (clickedCards.includes(cardId)) {
       setScore(0);
       setClickedCards([]);
@@ -47,12 +45,10 @@ function App() {
       return;
     }
 
-    // Card not clicked before, increment score
     const newScore = score + 1;
     setScore(newScore);
     setClickedCards([...clickedCards, cardId]);
 
-    // Update best score if new score exceeds it
     if (newScore > bestScore) {
       setBestScore(newScore);
     }
@@ -61,26 +57,28 @@ function App() {
   };
 
   return (
-    <>
+    <div className={styles.app}>
       {loading ? (
-        <div>Loading...</div>
+        <div className={styles.loading}>Loading Pokemon...</div>
       ) : error ? (
-        <div>{error}</div>
+        <div className={styles.error}>{error}</div>
       ) : (
         <>
           <Scoreboard score={score} bestScore={bestScore} />
-          {cards.map((card) => (
-            <Card
-              key={card.id}
-              imageUrl={card.imageUrl}
-              alt={card.alt}
-              title={card.title}
-              onClick={() => handleCardClick(card.id)}
-            />
-          ))}
+          <div className={styles.cardGrid}>
+            {cards.map((card) => (
+              <Card
+                key={card.id}
+                imageUrl={card.imageUrl}
+                alt={card.alt}
+                title={card.title}
+                onClick={() => handleCardClick(card.id)}
+              />
+            ))}
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 
