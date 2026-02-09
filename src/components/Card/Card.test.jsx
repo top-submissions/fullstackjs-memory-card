@@ -102,4 +102,25 @@ describe('Card', () => {
     const image = screen.getByRole('img');
     expect(image).toHaveAttribute('src', frontUrl);
   });
+
+  it('applies flipped CSS class when isFlipped is true', () => {
+    // Arrange: prepare flipped card
+    const frontUrl = 'https://example.com/bulbasaur-front.jpg';
+    const backUrl = 'https://example.com/card-back.jpg';
+
+    // Act: render Card in flipped state
+    render(
+      <Card
+        imageUrl={frontUrl}
+        cardBackUrl={backUrl}
+        alt="Bulbasaur"
+        title="Bulbasaur"
+        isFlipped={true}
+      />,
+    );
+
+    // Assert: card container has flipped class for CSS animation hook
+    const cardContainer = screen.getByRole('img').parentElement;
+    expect(cardContainer).toHaveClass('flipped');
+  });
 });
