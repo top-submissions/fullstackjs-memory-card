@@ -81,4 +81,25 @@ describe('Card', () => {
     const image = screen.getByRole('img');
     expect(image).toHaveAttribute('src', backUrl);
   });
+
+  it('shows front image when not flipped', () => {
+    // Arrange: prepare both URLs with explicit non-flipped state
+    const frontUrl = 'https://example.com/charmander-front.jpg';
+    const backUrl = 'https://example.com/card-back.jpg';
+
+    // Act: render Card with isFlipped explicitly false
+    render(
+      <Card
+        imageUrl={frontUrl}
+        cardBackUrl={backUrl}
+        alt="Charmander"
+        title="Charmander"
+        isFlipped={false}
+      />,
+    );
+
+    // Assert: image displays front, not back
+    const image = screen.getByRole('img');
+    expect(image).toHaveAttribute('src', frontUrl);
+  });
 });
