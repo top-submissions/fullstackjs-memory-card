@@ -1,5 +1,5 @@
 .card {
-  background: white;
+  background: #1f2937;
   border-radius: 12px;
   padding: 1rem;
   cursor: pointer;
@@ -15,7 +15,7 @@
 .card:hover {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  border-color: #667eea;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .card:active {
@@ -39,7 +39,7 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #1f2937;
+  color: white;
   text-transform: capitalize;
   text-align: center;
 }
