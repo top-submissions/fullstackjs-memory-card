@@ -60,4 +60,25 @@ describe('Card', () => {
     // Assert: onClick was invoked once
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
+
+  it('shows card back image when flipped', () => {
+    // Arrange: prepare front and back image URLs
+    const frontUrl = 'https://example.com/pikachu-front.jpg';
+    const backUrl = 'https://example.com/card-back.jpg';
+
+    // Act: render Card in flipped state
+    render(
+      <Card
+        imageUrl={frontUrl}
+        cardBackUrl={backUrl}
+        alt="Pikachu"
+        title="Pikachu"
+        isFlipped={true}
+      />,
+    );
+
+    // Assert: image shows back instead of front when flipped
+    const image = screen.getByRole('img');
+    expect(image).toHaveAttribute('src', backUrl);
+  });
 });
