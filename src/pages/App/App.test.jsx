@@ -37,8 +37,8 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
     });
-    expect(screen.getByText(/^score$/i)).toBeInTheDocument();
-    expect(screen.getByText(/^best score$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
 
   it('renders multiple cards from data array', async () => {
@@ -67,7 +67,7 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
     });
-    expect(screen.getByText('0')).toBeInTheDocument();
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
   });
 
   it('increments score when a card is clicked', async () => {
@@ -83,7 +83,7 @@ describe('App', () => {
     await user.click(screen.getByText('pikachu'));
 
     // Assert: score incremented to 1
-    expect(screen.getAllByText('1')[0]).toBeInTheDocument();
+    expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
   });
 
   it('manages best score state', async () => {
@@ -97,7 +97,8 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
     });
-    expect(screen.getAllByText('0').length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 0$/i)).toBeInTheDocument();
   });
 
   it('updates best score when current score exceeds it', async () => {
@@ -113,7 +114,8 @@ describe('App', () => {
     await user.click(screen.getByText('pikachu'));
 
     // Assert: both scores show 1
-    expect(screen.getAllByText('1').length).toBe(2);
+    expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
   });
 
   it('resets score to 0 when clicking the same card twice', async () => {
@@ -130,9 +132,8 @@ describe('App', () => {
     await user.click(screen.getByText('pikachu'));
 
     // Assert: current score is 0, best score is 1
-    const scores = screen.getAllByText(/^\d+$/);
-    expect(scores[0]).toHaveTextContent('0'); // current score
-    expect(scores[1]).toHaveTextContent('1'); // best score
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
   });
 
   it('preserves best score when score resets', async () => {
@@ -149,9 +150,8 @@ describe('App', () => {
     await user.click(screen.getByText('pikachu'));
 
     // Assert: score=0, best=1
-    const scores = screen.getAllByText(/^\d+$/);
-    expect(scores[0]).toHaveTextContent('0');
-    expect(scores[1]).toHaveTextContent('1');
+    expect(screen.getByText(/^score: 0$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 1$/i)).toBeInTheDocument();
   });
 
   it('increases score continuously when clicking all unique cards', async () => {
@@ -169,7 +169,8 @@ describe('App', () => {
     await user.click(screen.getByText('bulbasaur'));
 
     // Assert: both scores show 3
-    expect(screen.getAllByText('3').length).toBe(2);
+    expect(screen.getByText(/^score: 3$/i)).toBeInTheDocument();
+    expect(screen.getByText(/^best score: 3$/i)).toBeInTheDocument();
   });
 
   it('transitions from loading to showing cards', async () => {
@@ -253,6 +254,6 @@ describe('App', () => {
     await user.click(screen.getByText('pikachu'));
 
     // Assert: score incremented after clicking API-loaded card
-    expect(screen.getAllByText('1')[0]).toBeInTheDocument();
+    expect(screen.getByText(/^score: 1$/i)).toBeInTheDocument();
   });
 });

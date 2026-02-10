@@ -5,7 +5,7 @@ function Card({ imageUrl, cardBackUrl, alt, title, onClick, isFlipped }) {
 
   return (
     <div
-      className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
+      className={`${styles.card} ${isFlipped ? 'flipped' : ''}`}
       onClick={onClick}
     >
       <img src={displayImage} alt={alt} className={styles.image} />
