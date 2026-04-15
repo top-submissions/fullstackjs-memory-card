@@ -1,48 +1,24 @@
 .scoreboard {
-  background: #1f2937;
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   display: flex;
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  gap: 1rem;
+  background: #16213e;
+  border: 1px solid rgba(233,69,96,0.35);
+  border-radius: 14px;
+  padding: 0.75rem 2rem;
 }
 
 .scoreItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: white;
+  gap: 2px;
+  min-width: 90px;
 }
 
 .value {
-  font-size: 2.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  background: white;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@media (max-width: 640px) {
-  .scoreboard {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1rem 2rem;
-  }
-
-  .value {
-    font-size: 2rem;
-  }
+  color: #FDD835;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
